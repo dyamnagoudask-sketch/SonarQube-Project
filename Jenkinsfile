@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        DOCKERHUB_USERNAME = 'pramod9901'  // Set this directly to your Docker Hub username
+        DOCKERHUB_USERNAME = 'pramod9901' 
         DOCKER_IMAGE = "${DOCKERHUB_USERNAME}/spotify-app:latest"
     }
 
@@ -35,7 +35,7 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Kastro -Dsonar.projectKey=KastroKey -Dsonar.java.binaries=target"
+                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Pramod -Dsonar.projectKey=PramodKey -Dsonar.java.binaries=target"
                 }
             }
         }
@@ -88,4 +88,5 @@ pipeline {
         }
     }
 }
+
 
