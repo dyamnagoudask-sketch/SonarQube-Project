@@ -3,6 +3,8 @@
                                                      Pramod K A
 ⭐ Smart DevOps Interview Answer for SonarQube – Code Quality Analysis Project
 
+“Code Quality Analysis is the process of automatically checking source code to ensure it is clean, secure, reliable, and easy to maintain before it goes into production.”
+
 “In my DevOps project, I implemented automated code quality analysis using SonarQube.
 I integrated SonarQube into our CI/CD pipeline so that every time a developer pushes code, the pipeline automatically triggers a SonarScanner to analyze the code for bugs, vulnerabilities, code smells, duplications, and maintainability issues.
 “SonarQube performs static code analysis and checks our code for:
@@ -98,6 +100,7 @@ Manage Jenkins --- Security --- Credentials --- Click on 'global' --- Click on '
 Similarly configure dockerhub credentials with id as "dockerhub-credentials" with kind as "username with password"
 
 Manage Jenkins --- System --- Scroll down to 'SonarQube servers' --- Click on 'Add SonarQube' --- Name: sonar-server --- ServerURL: <PublicIPofSQinstalledVM>:9000 --- Server Authentication Token: select 'sonar-token' --- Apply --- Save
+
 
 
 
