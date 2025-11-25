@@ -1,6 +1,21 @@
 											SonarQube - Code Quality Analysis
 														by
                                                      Pramod K A
+What SonarQube Analyzes (in interview-ready form)
+
+“SonarQube performs static code analysis and checks our code for:
+
+Bugs – Issues that can cause incorrect behavior at runtime.
+
+Code Smells – Bad coding practices that can reduce maintainability.
+
+Vulnerabilities – Security risks that attackers can exploit.
+
+Duplications – Repeated code that increases technical debt.
+
+Maintainability Issues – Areas that make the code harder to read, test, or modify.
+
+It gives us a detailed report on code quality for every commit or pull request.”
 													
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Step 1: Launch Ubuntu VM with instance type as t2.large, AMI: 24.04, Storage: 25 GB, No. of instances: 1
@@ -80,6 +95,7 @@ Manage Jenkins --- Security --- Credentials --- Click on 'global' --- Click on '
 Similarly configure dockerhub credentials with id as "dockerhub-credentials" with kind as "username with password"
 
 Manage Jenkins --- System --- Scroll down to 'SonarQube servers' --- Click on 'Add SonarQube' --- Name: sonar-server --- ServerURL: <PublicIPofSQinstalledVM>:9000 --- Server Authentication Token: select 'sonar-token' --- Apply --- Save
+
 
 
 
