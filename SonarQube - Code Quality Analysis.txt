@@ -5,32 +5,18 @@
 
 “In my DevOps project, I implemented automated code quality analysis using SonarQube.
 I integrated SonarQube into our CI/CD pipeline so that every time a developer pushes code, the pipeline automatically triggers a SonarScanner to analyze the code for bugs, vulnerabilities, code smells, duplications, and maintainability issues.
+“SonarQube performs static code analysis and checks our code for:
 
-SonarQube then applies a Quality Gate — basically a pass/fail filter based on rules we defined, such as no critical security issues and minimum code coverage.
+SonarQube analyzes the code across five key areas: bugs that can break the application, vulnerabilities that pose security risks, code smells that reduce maintainability, duplications that increase technical debt, and overall maintainability issues.
+
+It gives us a detailed report on code quality for every commit or pull request.”
+SonarQube then applies a Quality Gate — basically a pass/fail filter based on rules we defined,
 If the Quality Gate passes, the pipeline continues to build and deploy. If it fails, the build is blocked, and the developer gets a detailed report on what needs to be fixed.
 
 This setup ensured that only clean, secure, and maintainable code reached production.
 Overall, it reduced technical debt, improved code consistency, and increased developer productivity through early feedback.”
 
-⭐ Short 20-second version (if interviewer wants quick summary)
 
-“I integrated SonarQube into our CI/CD pipeline to automatically check every code commit for bugs, vulnerabilities, and code smells.
-Based on the Quality Gate result, the pipeline either proceeds or stops, ensuring only high-quality code gets deployed.”
-What SonarQube Analyzes (in interview-ready form)
-
-“SonarQube performs static code analysis and checks our code for:
-
-Bugs – Issues that can cause incorrect behavior at runtime.
-
-Code Smells – Bad coding practices that can reduce maintainability.
-
-Vulnerabilities – Security risks that attackers can exploit.
-
-Duplications – Repeated code that increases technical debt.
-
-Maintainability Issues – Areas that make the code harder to read, test, or modify.
-
-It gives us a detailed report on code quality for every commit or pull request.”
 													
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Step 1: Launch Ubuntu VM with instance type as t2.large, AMI: 24.04, Storage: 25 GB, No. of instances: 1
@@ -110,6 +96,7 @@ Manage Jenkins --- Security --- Credentials --- Click on 'global' --- Click on '
 Similarly configure dockerhub credentials with id as "dockerhub-credentials" with kind as "username with password"
 
 Manage Jenkins --- System --- Scroll down to 'SonarQube servers' --- Click on 'Add SonarQube' --- Name: sonar-server --- ServerURL: <PublicIPofSQinstalledVM>:9000 --- Server Authentication Token: select 'sonar-token' --- Apply --- Save
+
 
 
 
