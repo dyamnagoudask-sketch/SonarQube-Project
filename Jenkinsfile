@@ -97,3 +97,39 @@ pipeline {
 
 
 
+
+
+Explain Each Stage in Simple & Strong Terms
+⭐ Git Checkout
+
+“The pipeline pulls the latest code from the main branch to ensure we always work with the most updated application version.”
+
+⭐ Compilation
+
+“We compile the source code using Maven to validate that the project builds successfully.”
+
+⭐ Unit Tests
+
+“Tests are executed to maintain code stability and verify that recent changes haven’t broken existing functionality.”
+
+⭐ SonarQube Analysis
+
+“The code is scanned with SonarQube for static code analysis—this checks code smells, bugs, vulnerabilities, and maintains code quality metrics.”
+
+⭐ Build Artifact
+
+“Maven packages the application into a deployable JAR file.”
+
+⭐ Docker Build
+
+“We containerize the application using Docker, ensuring consistency across environments.”
+
+⭐ DockerHub Push
+
+“The built image is pushed to DockerHub for centralized storage and easy deployment across environments.”
+
+⭐ Deployment
+
+“We run the latest Docker image as a container, making the application live.”
+
+
