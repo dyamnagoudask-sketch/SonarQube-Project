@@ -4,91 +4,87 @@ pipeline {
     tools {
         maven 'maven3'
         jdk 'jdk17'
-        // Remove the sonarQube line if it still causes issues
     }
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        DOCKERHUB_USERNAME = 'akasha123' 
-        DOCKER_IMAGE = "${DOCKERHUB_USERNAME}/spotify-app:latest"
+        SONAR_HOST_URL = 'http://18.191.186.152:9000'
+        DOCKER_IMAGE = 'akasha123/spotify-app:latest'
     }
 
     stages {
+
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/dyamnagoudask-sketch/SonarQube-Project.git'
+                git branch: 'main',
+                    url: 'https://github.com/dyamnagoudask-sketch/SonarQube-Project.git'
             }
         }
 
         stage('Compile') {
             steps {
-                sh "mvn compile"
+                sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh "mvn test"
+                sh 'mvn test'
             }
         }
 
-        stage('Sonar Analysis') {
+        stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonar-server') {
-                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Pramod -Dsonar.projectKey=dyamanagoudaKey -Dsonar.java.binaries=target"
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh """
+                    ${SCANNER_HOME}/bin/sonar-scanner \
+                    -Dsonar.projectName=Dyamanagouda \
+                    -Dsonar.projectKey=DyamanagoudaKey \
+                    -Dsonar.java.binaries=target \
+                    -Dsonar.host.url=${SONAR_HOST_URL} \
+                    -Dsonar.login=${SONAR_TOKEN}
+                    """
                 }
             }
         }
 
         stage('Build') {
             steps {
-                sh "mvn package"
+                sh 'mvn package'
             }
         }
 
         stage('Docker Build') {
             steps {
-                script {
-                    // Building Docker Image
-                    sh "docker build -t $DOCKER_IMAGE ."
-                }
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
         stage('Docker Push to DockerHub') {
             steps {
-                script {
-                    withDockerRegistry(credentialsId: 'dockerhub-credentials') { 
-                                  usernameVariable: 'DOCKERHUB_USERNAME', 
-                                  passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                           sh """
-                                  docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-                                  docker build -t $DOCKER_IMAGE .
-                                  docker push $DOCKER_IMAGE
-                              """
-                    }
+                withDockerRegistry(
+                    credentialsId: 'dockerhub-credentials',
+                    url: 'https://index.docker.io/v1/'
+                ) {
+                    sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
 
-
         stage('Run Docker Container') {
             steps {
-                script {
-                    // Stop any existing container with the same name
-                    sh "docker stop spotify-app || true && docker rm spotify-app || true"
-                    
-                    // Running the container
-                    sh "docker run -d --name spotify-app -p 5555:5555 $DOCKER_IMAGE"
-                }
+                sh '''
+                docker stop spotify-app || true
+                docker rm spotify-app || true
+                docker run -d --name spotify-app -p 5555:5555 ${DOCKER_IMAGE}
+                '''
             }
         }
     }
 
     post {
         always {
-            echo 'Cleaning up workspace...'
-            cleanWs()  // Clean up the workspace after the build
+            cleanWs()
         }
     }
 }
@@ -131,6 +127,7 @@ Explain Each Stage in Simple & Strong Terms
 ⭐ Deployment
 
 “We run the latest Docker image as a container, making the application live.”
+
 
 
 
