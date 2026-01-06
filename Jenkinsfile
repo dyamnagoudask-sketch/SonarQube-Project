@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        DOCKERHUB_USERNAME = 'pramod9901' 
+        DOCKERHUB_USERNAME = 'akasha123' 
         DOCKER_IMAGE = "${DOCKERHUB_USERNAME}/spotify-app:latest"
     }
 
@@ -131,5 +131,6 @@ Explain Each Stage in Simple & Strong Terms
 ⭐ Deployment
 
 “We run the latest Docker image as a container, making the application live.”
+
 
 
