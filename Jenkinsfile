@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Pramod-project/SonarQube-Project-Kastro.git'
+                git branch: 'main', url: 'https://github.com/dyamnagoudask-sketch/SonarQube-Project.git'
             }
         }
 
@@ -35,7 +35,7 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Pramod -Dsonar.projectKey=PramodKey -Dsonar.java.binaries=target"
+                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Pramod -Dsonar.projectKey=dyamanagoudaKey -Dsonar.java.binaries=target"
                 }
             }
         }
@@ -58,7 +58,7 @@ pipeline {
         stage('Docker Push to DockerHub') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', 
+                    withDockerRegistry(credentialsId: 'dockerhub-credentials') { 
                                   usernameVariable: 'DOCKERHUB_USERNAME', 
                                   passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                            sh """
@@ -131,6 +131,7 @@ Explain Each Stage in Simple & Strong Terms
 ⭐ Deployment
 
 “We run the latest Docker image as a container, making the application live.”
+
 
 
 
